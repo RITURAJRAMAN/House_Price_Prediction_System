@@ -3,8 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <title>House Price Predictor</title>
-</head>
-<body>
+    <style>
+        body {
+            background-color: black;
+        }
 
+        .heading {
+            color: white;
+            text-align: center;
+            margin: 35px 0 50px 0;
+        }
+
+        .login form {
+            display: grid;
+            grid-template-columns: repeat(6, auto);
+            justify-content: center;
+            align-items: center;
+            grid-gap: 25px;
+        }
+
+        .login form input {
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 15px 0;
+            text-align: center;
+            background-color: rgb(255, 251, 222);
+        }
+
+        .login form input::placeholder {
+            color: rgb(0, 0, 0);
+            font-weight: bold
+        }
+
+        .login form button {
+            grid-column-start: 3;
+            grid-column-end: 5;
+            padding: 15px;
+            background-color: rgb(0, 255, 76);
+        }
+
+        #result h1 {
+            color: white;
+            text-align: center;
+        }
+
+        .csv {
+            background-color: red;
+            text-align: center;
+            padding: 8px 0;
+            width: 160px;
+            margin: auto;
+        }
+
+        .csv a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .creator {
+            color: white;
+            text-align: end;
+            padding-right: 10px;
+        }
+
+        @media only screen and (max-width: 1140px) {
+            .login form {
+                    grid-template-columns: repeat(4, auto);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="heading">
+    <h1>Enter the values for House Features</h1>
+</div>
+<div class="login">
+    <div>
+        <form action="{{ url_for('predict')}}" method="post">
+            <label>
+                <input type="text" name="mean_radius" placeholder="Mean Radius" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_texture" placeholder="Mean Texture" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_perimeter" placeholder="Mean Perimeter" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_area" placeholder="Mean Area" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_smoothness" placeholder="Mean Smoothness" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_compactness" placeholder="Mean Compactness" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_concavity" placeholder="Mean Concavity" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_concave_points" placeholder="Mean Concave Points"
+                       required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_symmetry" placeholder="Mean Symmetry" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="mean_fractal_dimension" placeholder="Mean Fractal Dimension"
+                       required="required"/>
+            </label>
+            <label>
+                <input type="text" name="radius_error" placeholder="Radius Error" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="texture_error" placeholder="Texture Error" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="perimeter_error" placeholder="Perimeter Error" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="area_error" placeholder="Area Error " required="required"/>
+            </label>
+            <label>
+                <input type="text" name="smoothness_error" placeholder="Smoothness Error" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="compactness_error" placeholder="Compactness Error"
+                       required="required"/>
+            </label>
+            <label>
+                <input type="text" name="concavity_error" placeholder="Concavity Error" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="concave_points_error" placeholder="Concave Points Error"
+                       required="required"/>
+            </label>
+            <label>
+                <input type="text" name="symmetry_error" placeholder="Symmetry Error" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="fractal_dimension_error" placeholder="Fractal Dimension Error"
+                       required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_radius" placeholder="Worst Radius" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_texture" placeholder="Worst Texture" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_perimeter" placeholder="Worst Perimeter" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_area" placeholder="Worst Area" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_smoothness" placeholder="Worst Smoothness" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_compactness" placeholder="Worst Compactness"
+                       required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_concavity" placeholder="Worst Concavity" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_concave_points" placeholder="Worst Concave points"
+                       required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_symmetry" placeholder="Worst Symmetry" required="required"/>
+            </label>
+            <label>
+                <input type="text" name="worst_fractal_dimension" placeholder="Worst Fractal Dimension"
+                       required="required"/>
+            </label>
+            <button type="submit" class="btn btn-primary btn-block btn-large"><strong>Predict
+                Cancer</strong>
+            </button>
+        </form>
+    </div>
+</div>
+<div id="result">
+    <h1>{{ prediction_text }}</h1>
+</div>
+<div class="csv">
+    <a href="../static/breast_cancer.csv" download>Downlaod CSV file</a>
+</div>
+<div class="creator">
+    <p>Created by Rituraj Raman</p>
+</div>
 </body>
+
 </html>
