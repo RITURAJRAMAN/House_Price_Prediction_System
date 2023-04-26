@@ -1,50 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>House Price Predictor</title>
+    <!--    <link rel="stylesheet" href="index.css">-->
     <style>
         body {
-            background-color: black;
+            background-image: url("cubes.jpg");
         }
 
         .heading {
-            color: white;
             text-align: center;
-            margin: 35px 0 50px 0;
+            margin: 18px 0 30px 0;
         }
 
-        .login form {
-            display: grid;
-            grid-template-columns: repeat(6, auto);
+        select,
+        input {
+            height: 30px;
+        }
+
+        .button-33 {
+            background-color: #c2fbd7;
+            border-radius: 100px;
+            box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+            rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+            rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+            rgba(44, 187, 99, 0.15) 0 16px 32px;
+            color: green;
+            cursor: pointer;
+            display: inline-block;
+            font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+            padding: 7px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 250ms;
+            border: 0;
+            font-size: 16px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .button-33:hover {
+            box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+            rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+            rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+            rgba(44, 187, 99, 0.25) 0 16px 32px;
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        /* .login form {
+                display: grid;
+                grid-template-columns: repeat(6, auto);
+                justify-content: center;
+                align-items: center;
+                grid-gap: 25px;
+              }
+
+              .login form input {
+                border: 2px solid white;
+                border-radius: 5px;
+                padding: 15px 0;
+                text-align: center;
+                background-color: rgb(255, 251, 222);
+              } */
+
+        .mainContainer {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin-right: 40px;
+            width: 40%;
+        }
+
+        input select {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* .container {
+                display: flex;
+                flex-direction: column;
+                width: 40%;
+              } */
+
+        .buttonss {
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
             justify-content: center;
             align-items: center;
-            grid-gap: 25px;
-        }
-
-        .login form input {
-            border: 2px solid white;
-            border-radius: 5px;
-            padding: 15px 0;
-            text-align: center;
-            background-color: rgb(255, 251, 222);
         }
 
         .login form input::placeholder {
-            color: rgb(0, 0, 0);
-            font-weight: bold
+            /* color: rgb(0, 0, 0); */
+            font-weight: bold;
         }
 
-        .login form button {
-            grid-column-start: 3;
-            grid-column-end: 5;
-            padding: 15px;
-            background-color: rgb(0, 255, 76);
-        }
+        /* .login form button {
+                grid-column-start: 3;
+                grid-column-end: 5;
+                padding: 15px;
+                background-color: rgb(0, 255, 76);
+              } */
 
         #result h1 {
-            color: white;
+            /* color: white; */
             text-align: center;
+        }
+
+        label {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: large;
+            font-weight: bold;
+            color: #05570b;
+            display: block;
+            float: left;
+        }
+
+        label:after {
+            content: ": ";
         }
 
         .csv {
@@ -60,15 +143,26 @@
             color: white;
         }
 
+        .login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .creator {
-            color: white;
+            /* color: white; */
             text-align: end;
             padding-right: 10px;
         }
 
-        @media only screen and (max-width: 1140px) {
-            .login form {
-                    grid-template-columns: repeat(4, auto);
+        @media only screen and (max-width: 656px) {
+            .mainContainer {
+                flex-direction: column;
+            }
+
+            .container {
+                margin-left: 20px;
+                width: 90%;
             }
         }
 
@@ -77,124 +171,129 @@
 
 <body>
 <div class="heading">
-    <h1>Enter the values for House Features</h1>
+    <h1>Enter the values for <!--<span><img src="home.jpg" width="30" height="30" alt=""></span><span
+            style="color: rgb(234, 28, 56);"></span> -->House Features</h1>
 </div>
 <div class="login">
-    <div>
-        <form action="{{ url_for('predict')}}" method="post">
-            <label>
-                <input type="text" name="mean_radius" placeholder="Mean Radius" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_texture" placeholder="Mean Texture" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_perimeter" placeholder="Mean Perimeter" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_area" placeholder="Mean Area" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_smoothness" placeholder="Mean Smoothness" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_compactness" placeholder="Mean Compactness" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_concavity" placeholder="Mean Concavity" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_concave_points" placeholder="Mean Concave Points"
-                       required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_symmetry" placeholder="Mean Symmetry" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="mean_fractal_dimension" placeholder="Mean Fractal Dimension"
-                       required="required"/>
-            </label>
-            <label>
-                <input type="text" name="radius_error" placeholder="Radius Error" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="texture_error" placeholder="Texture Error" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="perimeter_error" placeholder="Perimeter Error" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="area_error" placeholder="Area Error " required="required"/>
-            </label>
-            <label>
-                <input type="text" name="smoothness_error" placeholder="Smoothness Error" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="compactness_error" placeholder="Compactness Error"
-                       required="required"/>
-            </label>
-            <label>
-                <input type="text" name="concavity_error" placeholder="Concavity Error" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="concave_points_error" placeholder="Concave Points Error"
-                       required="required"/>
-            </label>
-            <label>
-                <input type="text" name="symmetry_error" placeholder="Symmetry Error" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="fractal_dimension_error" placeholder="Fractal Dimension Error"
-                       required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_radius" placeholder="Worst Radius" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_texture" placeholder="Worst Texture" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_perimeter" placeholder="Worst Perimeter" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_area" placeholder="Worst Area" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_smoothness" placeholder="Worst Smoothness" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_compactness" placeholder="Worst Compactness"
-                       required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_concavity" placeholder="Worst Concavity" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_concave_points" placeholder="Worst Concave points"
-                       required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_symmetry" placeholder="Worst Symmetry" required="required"/>
-            </label>
-            <label>
-                <input type="text" name="worst_fractal_dimension" placeholder="Worst Fractal Dimension"
-                       required="required"/>
-            </label>
-            <button type="submit" class="btn btn-primary btn-block btn-large"><strong>Predict
-                Cancer</strong>
-            </button>
-        </form>
-    </div>
+    <form action="{{url_for('predict')}}" id="myform" method="post" class="mainContainer">
+        <!-- Start code from here -->
+
+        <div class="container">
+            <label for="builtYear">Built Year</label>
+            <input type="text" id="builtYear" name="YearBuilt" placeholder="Enter Built Year" required="required"/>
+
+            <label for="PlotArea">Plot Area</label>
+            <input type="text" id="PlotArea" name="Area" placeholder="Enter Plot Area" required="required"/>
+
+            <label for="countBedroom">Number of Bedroom</label>
+            <input type="text" id="countBedroom" name="NumBedRooms" placeholder="Enter Number of Bedrooms"
+                   required="required"/>
+
+            <label for="areaBedroom">Area of Bedroom</label>
+            <input type="text" id="areaBedroom" name="AreaBedroom" placeholder="Enter Area of Bedroom"
+                   required="required"/>
+
+            <label for="conditionBedroom">Condition of Bedroom</label>
+            <select id="conditionBedroom" name="BedroomCond" required="required">
+                <option value="0">Excellent</option>
+                <option value="1">Very Good</option>
+                <option value="2">Good</option>
+                <option value="3">Average</option>
+                <option value="4">Typical</option>
+                <option value="5">Bad</option>
+                <option value="6">Very Bad</option>
+            </select>
+
+            <label for="numberKitchen">Number of Kitchens</label>
+            <input type="text" id="numberKitchen" name="NumKitch" placeholder="Enter Number of Kitchens"
+                   required="required"/>
+
+            <label for="areaKitchen">Area of Kitchens</label>
+            <input type="text" id="areaKitchen" name="AreaKitch" placeholder="Enter Area of Kitchens"
+                   required="required"/>
+
+            <label for="conditionKitchen">Condition of Kitchen</label>
+            <select id="conditionKitchen" name="KitchCond" required="required">
+                <option value="0">Excellent</option>
+                <option value="1">Very Good</option>
+                <option value="2">Good</option>
+                <option value="3">Average</option>
+                <option value="4">Typical</option>
+                <option value="5">Bad</option>
+                <option value="6">Very Bad</option>
+            </select>
+        </div>
+        <div class="container">
+            <label for="garage">Available Garage</label>
+            <select id="garage" name="Garage" required="required">
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+            </select>
+
+            <label for="garageArea">Area of Garage</label>
+            <input type="text" id="garageArea" name="GarageArea" placeholder="Enter Area of Garage"
+                   required="required"/>
+
+            <label for="electricity">Available Electricity</label>
+            <select id="electricity" name="Electricity" required="required">
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+            </select>
+
+            <label for="airCond">Air Conditioning</label>
+            <select id="airCond" name="AirConditioning" required="required">
+                <option value="0">Excellent</option>
+                <option value="1">Very Good</option>
+                <option value="2">Good</option>
+                <option value="3">Average</option>
+                <option value="4">Typical</option>
+                <option value="5">Bad</option>
+                <option value="6">Very Bad</option>
+            </select>
+
+            <label for="hearth">Number of Hearth</label>
+            <input type="text" id="hearth" name="NumHearth" placeholder="Enter Number of Hearth" required="required"/>
+
+            <label for="conditionHouse">Condition of House</label>
+            <select id="conditionHouse" name="HouseCondition" required="required">
+                <option value="0">Excellent</option>
+                <option value="1">Very Good</option>
+                <option value="2">Good</option>
+                <option value="3">Average</option>
+                <option value="4">Typical</option>
+                <option value="5">Bad</option>
+                <option value="6">Very Bad</option>
+            </select>
+
+            <label for="pool">Available Pool</label>
+            <select id="pool" name="Pool" required="required">
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+            </select>
+
+            <label for="garden">Available Garden</label>
+            <select id="garden" name="Garden" required="required">
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+            </select>
+        </div>
+
+    </form>
+</div>
+
+<div class="buttonss">
+    <button type="submit" form="myform" class="button-33 ">
+        <strong>Predict the Price</strong>
+    </button>
 </div>
 <div id="result">
     <h1>{{ prediction_text }}</h1>
 </div>
 <div class="csv">
-    <a href="../static/breast_cancer.csv" download>Downlaod CSV file</a>
+    <a href="../static/HousePriceData.csv" download>Downlaod CSV file</a>
 </div>
 <div class="creator">
-    <p>Created by Rituraj Raman</p>
+    <p style="font-size: larger">Created by Lodu and Motii</p>
 </div>
 </body>
-
 </html>
