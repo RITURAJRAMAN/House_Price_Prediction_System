@@ -23,7 +23,7 @@ def predict():
 
     df = pd.DataFrame(variables_data, columns=features_name)
     house_price = int(model.predict(df))
-    return render_template('index.html', prediction_text='The Estimated Price for the House is {}'.format(house_price))
+    return render_template('index.html', prediction_text='The Estimated Price for the House is ₹{}'.format(house_price))
 
 
 if __name__ == "__main__":
