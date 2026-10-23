@@ -6,7 +6,7 @@ gunicorn
 matplotlib==3.7.1
 seaborn
 itsdangerous==2.1.2
-Jinja2==3.1.2
+Jinja2==3.1.6
 MarkupSafe==2.1.2
 Werkzeug==2.3.0
 xgboost
